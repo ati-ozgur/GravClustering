@@ -6,8 +6,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -18,7 +16,6 @@ import geom.VectorND;
 import clustering.gravity.GravityClustering;
 import clustering.gravity.GravityClustering.ParticleCluster;
 import clustering.gravity.Particle;
-import ui.DrawPane_Point2D;
 import ui.GravClusterPane_Point2D;
 
 public class GravClustering_Tester 
@@ -69,7 +66,7 @@ public class GravClustering_Tester
 	
 	public static void runGravTest(GravClusterPane_Point2D pane, int iter)
 	{
-		ArrayList<VectorND> dataset = new ArrayList<VectorND>();
+		ArrayList<VectorND> dataset = new ArrayList<>();
 		for (ArrayList<Vector2D> pt_sets : pane.points.values())
 		{
 			for (Vector2D pt : pt_sets)
@@ -86,25 +83,37 @@ public class GravClustering_Tester
 		pane.clearPoints();
 		
 		// add all the clustered elements
-		for(Entry<Integer, ParticleCluster> entry : clusters.entrySet())
-		{
-			ParticleCluster cluster = entry.getValue();
-			
-			Color clr = new Color(random.nextFloat(), random.nextFloat(), random.nextFloat());
-			for (Particle p : cluster.elements)
-			{
-				Vector2D vec = new Vector2D(p.pos.get(0), p.pos.get(1));
-				pane.addPoint(clr, vec);
-			}
-		}
-		
+		addToPaneAllClusters(pane, clusters);
+
 		// add the outliers as black
-		pane.outliers.clear();
-		for (Particle p : gravClust.outliers) pane.outliers.add(new Vector2D(p.pos.get(0), p.pos.get(1)));
+		addToPaneAllOutliersAsBlack(pane);
 		pane.repaint();
 		
 	}
-	
+
+	private static void addToPaneAllOutliersAsBlack(GravClusterPane_Point2D pane) {
+		pane.outliers.clear();
+		for (Particle p : gravClust.outliers) pane.outliers.add(new Vector2D(p.position.get(0), p.position.get(1)));
+	}
+
+	private static void addToPaneAllClusters(GravClusterPane_Point2D pane, HashMap<Integer, ParticleCluster> clusters) {
+		for(Entry<Integer, ParticleCluster> entry : clusters.entrySet())
+		{
+			ParticleCluster cluster = entry.getValue();
+
+			Color clr = getRandomColor();
+			for (Particle p : cluster.elements)
+			{
+				Vector2D vec = new Vector2D(p.position.get(0), p.position.get(1));
+				pane.addPoint(clr, vec);
+			}
+		}
+	}
+
+	private static Color getRandomColor() {
+		return new Color(random.nextFloat(), random.nextFloat(), random.nextFloat());
+	}
+
 	public static void main(String[] args)
 	{
 		final int width = 800;
@@ -132,6 +141,7 @@ public class GravClustering_Tester
 				{
 					runGravTest(pane, 1000);
 				}
+
 			}
 			public void keyPressed(KeyEvent e) { }
 		});

@@ -4,33 +4,33 @@ import geom.VectorND;
 
 public class Particle
 {
-	public VectorND pos;
+	public VectorND position;
 	public double mass;
 	
 	public Particle(VectorND v)
 	{
-		pos = v;
+		position = v;
 		mass = 1.0;
 	}
 	
 	public Particle(VectorND v, double m)
 	{
-		pos = v;
+		position = v;
 		mass = m;
 	}
 	
-	public double distSq(Particle b) { return pos.distSq(b.pos); }
+	public double distanceSquare(Particle b) { return position.distSq(b.position); }
 	
 	public static double[] MoveVector(Particle a, Particle b, double G)
 	{
-		int dimension = a.pos.length();
+		int dimension = a.position.length();
 		
 		double magnitude = 0.0;
 		double[] diff = new double[dimension];
 		
 		for (int i = 0; i < dimension; i++)	
 		{
-			diff[i] = b.pos.get(i) - a.pos.get(i);
+			diff[i] = b.position.get(i) - a.position.get(i);
 			magnitude += (diff[i]*diff[i]);
 		}
 		magnitude = Math.sqrt(magnitude);

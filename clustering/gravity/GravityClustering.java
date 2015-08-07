@@ -129,8 +129,8 @@ public class GravityClustering
 		// perform a simultaneous update to both particles
 		double[] a_move = Particle.MoveVector(a, b, grav_const);
 		double[] b_move = Particle.MoveVector(a, b, grav_const);
-		for (int i = 0; i < a.pos.length(); i++) a.pos.elements[i] += a_move[i];
-		for (int i = 0; i < b.pos.length(); i++) b.pos.elements[i] += b_move[i];
+		for (int i = 0; i < a.position.length(); i++) a.position.elements[i] += a_move[i];
+		for (int i = 0; i < b.position.length(); i++) b.position.elements[i] += b_move[i];
 	}
 	
 	
@@ -160,7 +160,7 @@ public class GravityClustering
 				
 				// update UnionFind data structure if x_j and x_k are 
 				// close enough to merge and form a new cluster
-				if (x_j.distSq(x_k) < EPS) merge(j, k);
+				if (x_j.distanceSquare(x_k) < EPS) merge(j, k);
 			}
 			grav_const = (1-DELTA_G)*grav_const;
 		}

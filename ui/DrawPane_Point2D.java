@@ -10,25 +10,22 @@ import java.util.Map.Entry;
 
 public class DrawPane_Point2D extends DrawPane
 {
-	protected Color clrDefault;
+	protected Color defaultColor = Color.BLACK;
 	
 	public HashMap<Color, ArrayList<Vector2D>> points;
-	public boolean bFilled;
-	public int radius;
+	public boolean bFilled = true;
+	public int radius = 6;
 	
 	public DrawPane_Point2D(int w, int h)
 	{
 		super(w, h);
 		points = new HashMap<Color, ArrayList<Vector2D>>();
-		clrDefault = Color.BLACK;
-		bFilled = true;
-		radius = 6;
 	}
 	
 	public void addPoint(Vector2D v)
 	{
-		if (points.size() == 0) points.put(clrDefault, new ArrayList<Vector2D>());
-		points.get(clrDefault).add(v);
+		if (points.size() == 0) points.put(defaultColor, new ArrayList<Vector2D>());
+		points.get(defaultColor).add(v);
 	}
 	public void addPoint(Color c, Vector2D v)
 	{

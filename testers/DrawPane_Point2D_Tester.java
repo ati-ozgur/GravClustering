@@ -40,7 +40,7 @@ public class DrawPane_Point2D_Tester
 		int height = 600;
 		
 		DrawPane_Point2D pane = new DrawPane_Point2D(width, height);
-//		generateRandomPoints(pane);
+		generateRandomPoints(pane);
 		generateBoundingPoints(pane);
 		
 		JFrame f = new JFrame();

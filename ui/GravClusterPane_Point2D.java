@@ -23,7 +23,7 @@ public class GravClusterPane_Point2D extends DrawPane_Point2D
 	public void render(Graphics g)
 	{
 		super.render(g);
-		g.setColor(clrDefault);
+		g.setColor(defaultColor);
 		for (Vector2D v : outliers) g.drawOval((int)(v.x - radius/2), (int)(v.y - radius/2), radius, radius);
 	}
 
